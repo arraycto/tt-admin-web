@@ -5,11 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.xlian.*.dao")
-public class XlianAdminWebApplication {
+@MapperScan(basePackages = "com.tt.*.dao")
+public class TTAdminWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(XlianAdminWebApplication.class, args);
+        SpringApplication.run(TTAdminWebApplication.class, args);
     }
 
 }

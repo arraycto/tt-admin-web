@@ -131,45 +131,4 @@ public class CodeGenComponent {
         //进行初始化操作
         velocityEngine.init();
     }
-
-    public static void main(String[] args) throws IOException {
-//        CodeGenComponent codeGenComponent = new CodeGenComponent();
-//        codeGenComponent.init();
-//        List<Map<String, Object>> param = new ArrayList<>();
-//        Map<String, Object> data = new HashMap<>(12);
-//        data.put("ClassName", "Dept");
-//        data.put("tableName", "sys_dept");
-//        data.put("className", "dept");
-//        data.put("module", "system");
-//        data.put("packageName", "com.xlian");
-//        data.put("primaryKeyType", "Integer");
-//        data.put("hasDate", false);
-//        List<Map<String, String>> columns = new ArrayList<>();
-//        Map<String, String> column = new HashMap<>(5);
-//        column.put("attributeName", "id");
-//        column.put("name", "id");
-//        column.put("comment", "主键");
-//        column.put("type", "Integer");
-//        columns.add(column);
-//        column = new HashMap<>(5);
-//        column.put("attributeName", "name");
-//        column.put("name", "name");
-//        column.put("comment", "姓名");
-//        column.put("type", "String");
-//        columns.add(column);
-//        data.put("columns", columns);
-//        param.add(data);
-//        ByteArrayOutputStream byteArrayOutputStream = codeGenComponent.generateCode(param, "com/xlian", "system");
-//        byte[] bytes = byteArrayOutputStream.toByteArray();
-//        FileOutputStream fileOutputStream = new FileOutputStream("D:/code.zip");
-//        fileOutputStream.write(bytes);
-//        fileOutputStream.flush();
-//        fileOutputStream.close();
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("tpl/*.*");
-        for (Resource resource : resources) {
-            System.out.println(resource.getFilename());
-        }
-
-    }
 }

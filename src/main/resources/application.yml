@@ -22,7 +22,7 @@ spring:
     suffix: .html
 mybatis:
   mapper-locations: classpath:mybatis/**/*.xml
-  type-aliases-package: com.xlian.**
+  type-aliases-package: com.tt.**
   configuration:
     map-underscore-to-camel-case: true
 logging:
