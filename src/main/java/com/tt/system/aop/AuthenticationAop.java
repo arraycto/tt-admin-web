@@ -10,6 +10,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
+import org.springframework.validation.support.BindingAwareModelMap;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +46,12 @@ public class AuthenticationAop {
                 }
                 if (argsClass[i].equals(WebStatFilter.StatHttpServletResponseWrapper.class)) {
                     argsClass[i] = HttpServletResponse.class;
+                }
+                if (argsClass[i].equals(BindingAwareModelMap.class)) {
+                    argsClass[i] = Model.class;
+                }
+                if (argsClass[i].getName().equals("org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile")) {
+                    argsClass[i] = MultipartFile.class;
                 }
             }
             Method method = clazz.getMethod(methodName, argsClass);
