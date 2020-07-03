@@ -2,6 +2,7 @@ package com.tt.system.controller;
 
 import com.github.pagehelper.Page;
 import com.tt.common.vo.Result;
+import com.tt.system.annotation.SysLog;
 import com.tt.system.vo.MenuVO;
 import com.tt.system.model.Menu;
 import com.tt.system.service.MenuService;
@@ -31,6 +32,7 @@ public class MenuController {
     }
 
     @GetMapping("/permission-list")
+    @SysLog(module = "获取权限菜单", operationType = "查看", desc = "")
     public Result getPermissionList(MenuVO menuVO) {
         List<MenuVO> menuList = menuService.getPermissionList(menuVO);
         return Result.ok(menuList);

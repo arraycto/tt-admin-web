@@ -1,7 +1,7 @@
 package com.tt.system.aop;
 
 import com.alibaba.druid.support.http.WebStatFilter;
-import com.tt.annotation.Permission;
+import com.tt.system.annotation.Permission;
 import com.tt.system.handler.UserHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.RequestFacade;

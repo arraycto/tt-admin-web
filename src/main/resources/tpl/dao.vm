@@ -11,9 +11,9 @@ public interface ${ClassName}Dao {
 
     List<${ClassName}> findByCondition(${ClassName}VO ${className}VO);
 
-    void save(${ClassName} user);
+    void save(${ClassName} ${className});
 
-    int update(${ClassName} user);
+    int update(${ClassName} ${className});
 
     int deleteById(Integer id);
 

@@ -1,11 +1,11 @@
 package com.tt.system.controller;
 
 import com.github.pagehelper.Page;
-import com.tt.annotation.Permission;
+import com.tt.system.annotation.Permission;
 import com.tt.common.vo.Result;
-import com.tt.system.vo.SysFeVersionVO;
-import com.tt.system.model.SysFeVersion;
-import com.tt.system.service.SysFeVersionService;
+import com.tt.system.vo.FeVersionVO;
+import com.tt.system.model.FeVersion;
+import com.tt.system.service.FeVersionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -14,22 +14,22 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/system/sysFeVersion")
+@RequestMapping("/system/feVersion")
 @Permission(value = {"SUPER_ADMIN"})
-public class SysFeVersionController {
+public class FeVersionController {
 
     @Autowired
-    private SysFeVersionService sysFeVersionService;
+    private FeVersionService feVersionService;
 
     @GetMapping("/list")
-    public Result getPageList(SysFeVersionVO sysFeVersionVO) {
+    public Result getPageList(FeVersionVO feVersionVO) {
         try {
-            List<SysFeVersion> sysFeVersionList = sysFeVersionService.findByCondition(sysFeVersionVO);
-            if (sysFeVersionList instanceof Page) {
-                Page page = (Page) sysFeVersionList;
-                return Result.ok(sysFeVersionList, page.getPageNum(), page.getPageSize(), (int) page.getTotal());
+            List<FeVersion> feVersionList = feVersionService.findByCondition(feVersionVO);
+            if (feVersionList instanceof Page) {
+                Page page = (Page) feVersionList;
+                return Result.ok(feVersionList, page.getPageNum(), page.getPageSize(), (int) page.getTotal());
             }
-            return Result.ok(sysFeVersionList);
+            return Result.ok(feVersionList);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return Result.error(e.getMessage());
@@ -37,9 +37,9 @@ public class SysFeVersionController {
     }
 
     @GetMapping("/all-list")
-    public Result getAllList(SysFeVersionVO sysFeVersionVO) {
+    public Result getAllList(FeVersionVO feVersionVO) {
         try {
-            return Result.ok(sysFeVersionService.findAll(sysFeVersionVO));
+            return Result.ok(feVersionService.findAll(feVersionVO));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return Result.error(e.getMessage());
@@ -47,9 +47,9 @@ public class SysFeVersionController {
     }
 
     @PostMapping("/save")
-    public Result save(@RequestBody SysFeVersion sysFeVersion) {
+    public Result save(@RequestBody FeVersion feVersion) {
         try {
-            sysFeVersionService.save(sysFeVersion);
+            feVersionService.save(feVersion);
             return Result.ok();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -58,9 +58,9 @@ public class SysFeVersionController {
     }
 
     @RequestMapping("/update")
-    public Result update(@RequestBody SysFeVersion sysFeVersion) {
+    public Result update(@RequestBody FeVersion feVersion) {
         try {
-            sysFeVersionService.update(sysFeVersion);
+            feVersionService.update(feVersion);
             return Result.ok();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -71,7 +71,7 @@ public class SysFeVersionController {
     @PostMapping("/delete/{id}")
     public Result remove(@PathVariable Integer id) {
         try {
-            sysFeVersionService.deleteById(id);
+            feVersionService.deleteById(id);
             return Result.ok();
         } catch (Exception e) {
             log.error(e.getMessage(), e);

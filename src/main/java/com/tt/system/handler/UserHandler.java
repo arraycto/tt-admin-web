@@ -2,10 +2,6 @@ package com.tt.system.handler;
 
 import com.tt.system.vo.UserVO;
 
-/**
- * @author TONGXIN
- */
-
 public class UserHandler {
 
     private UserHandler() {

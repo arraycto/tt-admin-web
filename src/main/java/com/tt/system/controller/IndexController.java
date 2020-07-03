@@ -1,8 +1,8 @@
 package com.tt.system.controller;
 
-import com.tt.system.model.SysFeVersion;
-import com.tt.system.service.SysFeVersionService;
-import com.tt.system.vo.SysFeVersionVO;
+import com.tt.system.model.FeVersion;
+import com.tt.system.service.FeVersionService;
+import com.tt.system.vo.FeVersionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +14,12 @@ import java.util.Optional;
 public class IndexController {
 
     @Autowired
-    private SysFeVersionService sysFeVersionService;
+    private FeVersionService feVersionService;
 
     @GetMapping("/")
     public String index(Model model) {
-        SysFeVersionVO sysFeVersionVO = new SysFeVersionVO();
-        Optional<SysFeVersion> first = sysFeVersionService.findAll(sysFeVersionVO).stream().findFirst();
+        FeVersionVO sysFeVersionVO = new FeVersionVO();
+        Optional<FeVersion> first = feVersionService.findAll(sysFeVersionVO).stream().findFirst();
         first.ifPresent(feVersionVO -> model.addAttribute("version", "/" + feVersionVO.getFeVersion()));
         return "index";
     }

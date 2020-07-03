@@ -3,7 +3,7 @@ package com.tt.system.vo;
 import lombok.Data;
 
 @Data
-public class SysFeVersionVO {
+public class FeVersionVO {
 
     private Integer pageNum = 1;
 
