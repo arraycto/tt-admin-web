@@ -4,6 +4,7 @@ public enum JavaTypeHandlerEnum {
 
     CHAR("CHAR", "String"),
     VARCHAR("VARCHAR", "String"),
+    TEXT("TEXT", "String"),
     LONGVARCHAR("LONGVARCHAR", "String"),
     MEDIUMTEXT("MEDIUMTEXT", "String"),
     NUMERIC("NUMERIC", "BigDecimal"),
