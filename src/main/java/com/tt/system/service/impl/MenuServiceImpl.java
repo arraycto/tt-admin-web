@@ -47,7 +47,10 @@ public class MenuServiceImpl implements MenuService {
             List<MenuVO> children = menuDao.findByCondition(temp);
             if (CollectionUtils.isNotEmpty(children)) {
                 pop.setChildren(children);
-                children.forEach(stack::push);
+                children.forEach(item->{
+                    item.setParentName(pop.getName());
+                    stack.push(item);
+                });
             }
         }
     }
@@ -110,6 +113,7 @@ public class MenuServiceImpl implements MenuService {
             MenuVO pop = stack.pop();
             List<MenuVO> childrenMenu = menuList.stream().filter(item -> item.getParentId().equals(pop.getId())).collect(Collectors.toList());
             childrenMenu.forEach(item -> {
+                item.setParentName(pop.getName());
                 if (item.getType() == 2) {
                     item.setOperate(item.getUrl());
                     item.setUrl(pop.getUrl());

@@ -1,5 +1,6 @@
 package com.tt.system.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.List;
  * @author TONGXIN
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MenuVO {
 
     private Integer pageNum = 1;
@@ -23,6 +25,11 @@ public class MenuVO {
      * 父菜单ID，一级菜单为0
      */
     private Integer parentId;
+
+    /**
+     * 父菜单名称
+     */
+    private String parentName;
     /**
      * 菜单名称
      */
