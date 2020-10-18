@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tt.admin.dao.LogDao">
+
+    <select id="findById" parameterType="java.lang.Integer" resultType="com.tt.admin.model.Log">
+		select *
+		from sys_log
+		where id = #{id}
+	</select>
+
+    <select id="findByCondition" parameterType="com.tt.admin.vo.LogVO" resultType="com.tt.admin.model.Log">
+        select *
+        from
+        sys_log
+        <where>
+            <if test="module != null  and module != '' ">
+                and `module` = #{module}
+            </if>
+            <if test="operationType != null  and operationType != '' ">
+                and `operation_type` = #{operationType}
+            </if>
+            <if test="requestUrl != null  and requestUrl != '' ">
+                and `request_url` = #{requestUrl}
+            </if>
+            <if test="requestMethod != null  and requestMethod != '' ">
+                and `request_method` = #{requestMethod}
+            </if>
+            <if test="requestParam != null  and requestParam != '' ">
+                and `request_param` = #{requestParam}
+            </if>
+            <if test="requestTime != null ">
+                and `request_time` = #{requestTime}
+            </if>
+            <if test="classMethod != null ">
+                and `class_method` = #{classMethod}
+            </if>
+            <if test="createUser != null  and createUser != '' ">
+                and `create_user` = #{createUser}
+            </if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.tt.admin.model.Log">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id()
+        </selectKey>
+        insert into sys_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="module != null">
+                `module`,
+            </if>
+            <if test="operationType != null">
+                `operation_type`,
+            </if>
+            <if test="requestUrl != null">
+                `request_url`,
+            </if>
+            <if test="requestMethod != null">
+                `request_method`,
+            </if>
+            <if test="requestParam != null">
+                `request_param`,
+            </if>
+            <if test="requestTime != null">
+                `request_time`,
+            </if>
+            <if test="classMethod != null">
+                `class_method`,
+            </if>
+            <if test="createUser != null">
+                `create_user`,
+            </if>
+            `create_time`,
+            `update_time`,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="module != null">
+                #{module},
+            </if>
+            <if test="operationType != null">
+                #{operationType},
+            </if>
+            <if test="requestUrl != null">
+                #{requestUrl},
+            </if>
+            <if test="requestMethod != null">
+                #{requestMethod},
+            </if>
+            <if test="requestParam != null">
+                #{requestParam},
+            </if>
+            <if test="requestTime != null">
+                #{requestTime},
+            </if>
+            <if test="classMethod != null">
+                #{classMethod},
+            </if>
+            <if test="createUser != null">
+                #{createUser},
+            </if>
+            now(),
+            now(),
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.tt.admin.model.Log">
+        update sys_log
+        <set>
+            <if test="moudle != null">`moudle` = #{moudle},</if>
+            <if test="operationType != null">`operation_type` = #{operationType},</if>
+            <if test="requestUrl != null">`request_url` = #{requestUrl},</if>
+            <if test="requestMethod != null">`request_method` = #{requestMethod},</if>
+            <if test="requestParam != null">`request_param` = #{requestParam},</if>
+            <if test="requestTime != null">`request_time` = #{requestTime},</if>
+            <if test="createUser != null">`create_user` = #{createUser},</if>
+            `update_time` = now(),
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+		delete from sys_log where id = #{id}
+	</delete>
+
+</mapper>
