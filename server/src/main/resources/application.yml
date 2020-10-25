@@ -35,6 +35,6 @@ static-resource:
   path: /work/fe/
 code:
   auto:
-    create: false
+    create: true
 
 
