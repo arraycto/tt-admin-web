@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3306/code?characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/tt_code?characterEncoding=utf8
     username: root
     password: root
   jackson:
@@ -13,4 +13,5 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 code:
-  disable: true
+  auto:
+    create: false

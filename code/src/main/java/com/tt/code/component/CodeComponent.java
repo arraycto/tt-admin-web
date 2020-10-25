@@ -59,6 +59,7 @@ public class CodeComponent {
         metaTable.getMetaColumnList().forEach(column -> {
             Map<String, String> data = new HashMap<>();
             data.put("columnName", CaseUtils.toCamelCase(column.getColumnName(), false, '_'));
+            data.put("columnComment", column.getColumnComment());
             data.put("column_name", column.getColumnName());
             JavaTypeHandlerEnum javaTypeHandlerEnum = JavaTypeHandlerEnum.getByJdbcType(column.getColumnType().toUpperCase());
             String javaType = javaTypeHandlerEnum.getJavaType();

@@ -18,108 +18,131 @@
         .ant-card-body {
             padding: 10px 24px;
         }
+        .ant-popover{
+            width: 400px;
+        }
     </style>
 </head>
 <body>
 <div id="root">
     <div style="margin-bottom: 60px">
-        <h3>建表语句</h3>
-        <div style="margin-bottom: 10px">
-            <a-button :disabled="sqlValue===''" type="primary" @click="formatCode">
-                格式化
-            </a-button>
-            <a-divider type="vertical"></a-divider>
-            <a-button :disabled="sqlValue===''" type="primary" @click="check">
-                校验
-            </a-button>
-        </div>
+        <a-card title="建表语句">
+            <div style="margin-bottom: 10px">
+                <a-button :disabled="sqlValue===''" type="primary" @click="formatCode">
+                    格式化
+                </a-button>
+                <a-popover placement="bottom">
+                    <template v-slot:content>
+                        <p>CREATE TABLE `sys_user` (
+                            `id` int(11) NOT NULL AUTO_INCREMENT,
+                            `username` varchar(50) NOT NULL DEFAULT '' COMMENT '用户名',
+                            `name` varchar(50) NOT NULL DEFAULT '' COMMENT '姓名',
+                            `email` varchar(50) NOT NULL DEFAULT '' COMMENT '邮箱',
+                            `password` varchar(100) NOT NULL DEFAULT '' COMMENT '密码',
+                            `mobile` varchar(11) NOT NULL DEFAULT '' COMMENT '手机号',
+                            `sex` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别 1.男 2.女',
+                            `birth` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '出身日期',
+                            `image` varchar(1000) NOT NULL DEFAULT '' COMMENT '头像',
+                            `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '可用状态 1.可用 2.不可用',
+                            `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                            `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+                            PRIMARY KEY (`id`) USING BTREE
+                            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;</p>
+                    </template>
+                    <a-button type="link">
+                        示例
+                    </a-button>
+                </a-popover>
 
-        <div>
-            <textarea id="code"></textarea>
-            <p style="color: red;white-space: pre-wrap;">{{sqlError}}</p>
-        </div>
-
-    </div>
-
-    <div>
-        <div style="display: flex">
-            <h3>模板变量</h3>
-            &nbsp;&nbsp;
-            <a-button type="primary" size="small" @click="addVariable">添加</a-button>
-        </div>
-
-        <div style="display: flex;flex-wrap: wrap;min-height: 200px">
-            <div v-for="(item,index) in customerVariable" style="margin: 5px 10px">
-                <a-input-group compact>
-                    <a-input style="width: 150px" v-model:value="item.variableName"></a-input>
-                    <a-button style="width:20px">:</a-button>
-                    <a-input style="width: 150px" v-model:value="item.variableValue"></a-input>
-                    <a-button type="danger" @click="deleteVariable(index)">删除</a-button>
-                </a-input-group>
             </div>
-        </div>
+            <div>
+                <textarea id="code"></textarea>
+                <p style="color: red;white-space: pre-wrap;">{{sqlError}}</p>
+            </div>
+        </a-card>
     </div>
 
-    <div>
-        <h3>模板</h3>
-        <a-button type="primary" @click="addTemplate">
-            {{modalShow?'返回':'添加'}}
-        </a-button>
-        <a-divider type="vertical"></a-divider>
-        <a-radio-group v-model:value="templateType" @change="onChange" v-if="!modalShow">
-            <a-radio-button value="default">
-                默认模板
-            </a-radio-button>
-            <a-radio-button value="custom">
-                自定义模板
-            </a-radio-button>
-        </a-radio-group>
-        <a-button :loading="submitLoading" type="primary" @click="submit" v-if="modalShow">
-            提交
-        </a-button>
-        <div class="data" style="display: flex;flex-wrap: wrap" v-show="!modalShow">
-            <a-card v-for="template in templateData" hoverable style="width: 230px;margin: 10px;position: relative">
-                <a-checkbox style="position: absolute" :checked="!!template.selected"
-                            @change="templateSelect(template)"></a-checkbox>
-                <div style="display: flex;flex-direction: column" @click="templateSelect(template)">
-                    <p style="text-align: center;font-size: 18px;font-weight: 900;">{{template.templateName}}</p>
-                    <p style="text-align: center;">{{template.fileType}}</p>
+    <div style="margin-bottom: 60px">
+        <a-card title="模板变量">
+            <div style="margin-bottom: 10px">
+                <a-button type="primary" size="small" @click="addVariable">添加</a-button>
+            </div>
+            <div style="display: flex;flex-wrap: wrap;min-height: 200px">
+                <div v-for="(item,index) in customerVariable" style="margin: 5px 10px">
+                    <a-input-group compact>
+                        <a-input style="width: 150px" v-model:value="item.variableName"></a-input>
+                        <a-button style="width:20px">:</a-button>
+                        <a-input style="width: 150px" v-model:value="item.variableValue"></a-input>
+                        <a-button type="danger" @click="deleteVariable(index)">删除</a-button>
+                    </a-input-group>
                 </div>
-                <template class="ant-card-actions" v-slot:actions>
-                    <a-button type="link" @click="edit(template)">查看</a-button>
-                    <!--                    <a-button type="link" :disabled="sqlValue===''">预览</a-button>-->
-                    <a-button type="link" @click="remove(template)"><span style="color: red">删除</span></a-button>
-                </template>
-            </a-card>
-        </div>
-        <div class="edit" v-bind:style="{opacity:modalShow?1:0,position:modalShow?'relative':'fixed'}"
-             style="display: flex">
-            <div style="flex: 1;padding: 5px">
-                <a-form layout="vertical" :form="templateForm">
-                    <a-form-item label="模板名称">
-                        <a-input v-model:value="templateForm.name"/>
-                    </a-form-item>
-                    <a-form-item label="文件类型">
-                        <a-select v-model:value="templateForm.fileType" style="width: 100%">
-                            <a-select-option v-for="item in fileTypeData" :value="item">
-                                {{item}}
-                            </a-select-option>
-                        </a-select>
-                        </a-select>
-                    </a-form-item>
-                    <a-form-item label="模板内容">
-                        <textarea id="template"></textarea>
-                    </a-form-item>
-                    <a-form-item label="预览">
-                        <textarea id="preview"></textarea>
-                    </a-form-item>
-                </a-form>
             </div>
-        </div>
+        </a-card>
+    </div>
+
+    <div style="margin-bottom: 60px">
+        <a-card title="模板">
+            <div style="margin-bottom: 10px">
+                <a-button type="primary" @click="addTemplate">
+                    {{modalShow?'返回':'添加'}}
+                </a-button>
+                <a-divider type="vertical"></a-divider>
+                <a-radio-group v-model:value="templateType" @change="onChange" v-if="!modalShow">
+                    <a-radio-button value="default">
+                        默认模板
+                    </a-radio-button>
+                    <a-radio-button value="custom">
+                        自定义模板
+                    </a-radio-button>
+                </a-radio-group>
+                <a-button :loading="submitLoading" type="primary" @click="submit" v-if="modalShow">
+                    提交
+                </a-button>
+            </div>
+            <div class="data" style="display: flex;flex-wrap: wrap" v-show="!modalShow">
+                <a-card v-for="template in templateData" hoverable style="width: 230px;margin: 10px;position: relative">
+                    <a-checkbox style="position: absolute" :checked="!!template.selected"
+                                @change="templateSelect(template)"></a-checkbox>
+                    <div style="display: flex;flex-direction: column" @click="templateSelect(template)">
+                        <p style="text-align: center;font-size: 18px;font-weight: 900;">{{template.templateName}}</p>
+                        <p style="text-align: center;">{{template.fileType}}</p>
+                    </div>
+                    <template class="ant-card-actions" v-slot:actions>
+                        <a-button type="link" @click="edit(template)">查看</a-button>
+                        <!--                    <a-button type="link" :disabled="sqlValue===''">预览</a-button>-->
+                        <a-button type="link" @click="remove(template)"><span style="color: red">删除</span></a-button>
+                    </template>
+                </a-card>
+            </div>
+            <div class="edit" v-bind:style="{opacity:modalShow?1:0,position:modalShow?'relative':'fixed'}"
+                 style="display: flex">
+                <div style="flex: 1;padding: 5px">
+                    <a-form layout="vertical" :form="templateForm">
+                        <a-form-item label="模板名称">
+                            <a-input v-model:value="templateForm.name"/>
+                        </a-form-item>
+                        <a-form-item label="文件类型">
+                            <a-select v-model:value="templateForm.fileType" style="width: 100%">
+                                <a-select-option v-for="item in fileTypeData" :value="item">
+                                    {{item}}
+                                </a-select-option>
+                            </a-select>
+                            </a-select>
+                        </a-form-item>
+                        <a-form-item label="模板内容">
+                            <textarea id="template"></textarea>
+                        </a-form-item>
+                        <a-form-item label="预览">
+                            <textarea id="preview"></textarea>
+                        </a-form-item>
+                    </a-form>
+                </div>
+            </div>
+        </a-card>
 
     </div>
     <a-button style="position: fixed;right: 100px;top: 50%;height: 64px;width: 64px" type="primary" shape="circle"
-              size="large" @click="generate">
+              size="large" @click="generate" :disabled="sqlValue===''">
         生成
     </a-button>
 
@@ -177,27 +200,27 @@
             },
             customerTemplateVariable() {
                 const obj = {}
-                this.customerVariable.forEach(item=>{
-                    obj[item.variableName]= item.variableValue
+                this.customerVariable.forEach(item => {
+                    obj[item.variableName] = item.variableValue
                 })
                 return obj
             }
         },
-        watch:{
-            customerVariable:{//深度监听，可监听到对象、数组的变化
-                handler(value){
+        watch: {
+            customerVariable: {//深度监听，可监听到对象、数组的变化
+                handler(value) {
                     console.log(12)
-                    window.localStorage.setItem('customerVariable',JSON.stringify(value))
+                    window.localStorage.setItem('customerVariable', JSON.stringify(value))
                 },
-                deep:true //true 深度监听
+                deep: true //true 深度监听
             },
-            'templateForm.fileType':{
-                handler(value){
-                   if (value){
-                       previewCodeEditor.setOption('mode',modeMap[value])
-                   }
+            'templateForm.fileType': {
+                handler(value) {
+                    if (value) {
+                        previewCodeEditor.setOption('mode', modeMap[value])
+                    }
                 },
-                deep:true //true 深度监听
+                deep: true //true 深度监听
             }
         },
         methods: {
@@ -245,8 +268,8 @@
             formatCode() {
                 codeEditor.setValue(sqlFormatter.format(codeEditor.getValue()))
             },
-            check() {
-                fetch('/code/check-sql', {
+            async check() {
+                let response = await fetch('/code/check-sql', {
                     method: "POST",
                     body: JSON.stringify({
                         sql: codeEditor.getValue()
@@ -254,16 +277,11 @@
                     headers: {
                         "Content-Type": "application/json"
                     }
-                }).then(response => {
-                    return response.json()
-                }).then(res => {
-                    console.log(res)
-                    if (res.status !== 200) {
-                        this.sqlError = res.msg
-                    }
-                }).catch(error => {
-                    console.error(error)
                 })
+                let res = response.json()
+                return new Promise(((resolve) => {
+                    resolve(res)
+                }))
             },
             preview() {
                 fetch('/code/preview', {
@@ -274,7 +292,7 @@
                             template: templateCodeEditor.getValue(),
                             fileType: 'java'
                         },
-                        customerTemplateVariable:this.customerTemplateVariable
+                        customerTemplateVariable: this.customerTemplateVariable
                     }),
                     headers: {
                         "Content-Type": "application/json"
@@ -282,8 +300,9 @@
                 }).then(response => {
                     return response.json()
                 }).then(res => {
-                    previewCodeEditor.setValue(res.data.content)
-                    console.log(res)
+                    if (res.data.content) {
+                        previewCodeEditor.setValue(res.data.content)
+                    }
                 }).catch(error => {
                     console.error(error)
                 })
@@ -321,6 +340,7 @@
                 response.json().then(res => {
                     if (res.status === 200) {
                         this.getTemplate()
+                        this.getDefaultTemplate()
                         this.modalShow = false
                     }
                 })
@@ -379,6 +399,12 @@
 
             },
             async generate() {
+                //检验sql
+                let res = await this.check()
+                if (res.status !== 200) {
+                    this.sqlError = res.msg
+                    return
+                }
                 const defaultData = this.defaultTemplateData.filter(item => !!item.selected)
                 const customData = this.customTemplateData.filter(item => !!item.selected)
                 const data = defaultData.concat(customData)
@@ -387,7 +413,7 @@
                     body: JSON.stringify({
                         sql: this.sqlValue,
                         templateList: data,
-                        customerTemplateVariable:this.customerTemplateVariable
+                        customerTemplateVariable: this.customerTemplateVariable
                     }),
                     headers: {
                         "Content-Type": "application/json"
@@ -408,8 +434,18 @@
         },
         mounted() {
             this.fileTypeData = Object.keys(modeMap)
+            //读取自定义变量缓存
             if (window.localStorage.getItem("customerVariable")) {
                 this.customerVariable = JSON.parse(window.localStorage.getItem("customerVariable"))
+            } else {
+                console.log(11)
+                this.customerVariable = [{
+                    variableName: 'package',
+                    variableValue: 'com.tt',
+                }, {
+                    variableName: 'module',
+                    variableValue: 'system',
+                }]
             }
             this.getTemplate()
             this.getDefaultTemplate()
