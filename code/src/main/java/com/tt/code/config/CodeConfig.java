@@ -20,13 +20,13 @@ public class CodeConfig {
 
     @PostConstruct
     public void init() {
-        if (disable) {
-            log.info("开始建表");
-            jdbcTemplate.execute("CREATE TABLE `hibernate_sequence` (\n" +
-                    "  `next_val` bigint(20) DEFAULT NULL\n" +
-                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-            log.info("建表完成");
-        }
+//        if (disable) {
+//            log.info("开始建表");
+//            jdbcTemplate.execute("CREATE TABLE `hibernate_sequence` (\n" +
+//                    "  `next_val` bigint(20) DEFAULT NULL\n" +
+//                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+//            log.info("建表完成");
+//        }
 
     }
 

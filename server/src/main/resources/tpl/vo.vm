@@ -9,12 +9,12 @@ public class ${ClassName}VO {
 
     private Integer pageSize = 10;
 
-    #foreach($column in $columns)
-    #if($column.attributeName!="id" && $column.type!="Date")
+    #foreach($metaColumn in $columns)
+    #if($metaColumn.attributeName!="id" && $metaColumn.type!="Date")
     /**
-     * $column.comment
+     * $metaColumn.comment
      */
-    private $column.type $column.attributeName;
+    private $metaColumn.type $metaColumn.attributeName;
     #end
     #end
 }

@@ -9,10 +9,10 @@ import java.util.Date;
 @Data
 public class ${ClassName} {
 
-    #foreach($column in $columns)
+    #foreach($metaColumn in $columns)
     /**
-     * $column.comment
+     * $metaColumn.comment
      */
-    private $column.type $column.attributeName;
+    private $metaColumn.type $metaColumn.attributeName;
     #end
 }

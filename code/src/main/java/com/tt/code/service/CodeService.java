@@ -1,10 +1,11 @@
 package com.tt.code.service;
 
-import com.tt.code.model.Table;
+import com.tt.code.model.MetaTable;
 import com.tt.code.vo.TemplateVO;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.Map;
 
 public interface CodeService {
 
@@ -20,7 +21,7 @@ public interface CodeService {
      *
      * @param sql
      */
-    List<Table> parseCreateSqlToTable(String sql);
+    List<MetaTable> parseCreateSqlToTable(String sql);
 
     /**
      * 预览结果
@@ -28,7 +29,7 @@ public interface CodeService {
      * @param sql
      * @return
      */
-    TemplateVO preview(String sql, TemplateVO template);
+    TemplateVO preview(String sql, Map<String, String> variable, TemplateVO template);
 
     /**
      * 生成代码
@@ -37,5 +38,5 @@ public interface CodeService {
      * @param template
      * @return
      */
-    ByteArrayOutputStream generate(String sql, List<TemplateVO> template);
+    ByteArrayOutputStream generate(String sql, Map<String, String> variable, List<TemplateVO> template);
 }

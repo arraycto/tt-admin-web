@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      #foreach($column in $columns)
-      #if($column.attributeName!="id" && $column.type!="Date")
-      <el-input v-model="queryParam.$column.attributeName" placeholder="$column.comment" style="width: 200px;" class="filter-item" />
+      #foreach($metaColumn in $columns)
+      #if($metaColumn.attributeName!="id" && $metaColumn.type!="Date")
+      <el-input v-model="queryParam.$metaColumn.attributeName" placeholder="$metaColumn.comment" style="width: 200px;" class="filter-item" />
       #end
       #end
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-search" @click="search">
@@ -29,25 +29,25 @@
       style="width: 100%;"
     >
       >
-      #foreach($column in $columns)
-      <el-table-column label="$column.comment" prop="$column.attributeName" align="center" />
+      #foreach($metaColumn in $columns)
+      <el-table-metaColumn label="$metaColumn.comment" prop="$metaColumn.attributeName" align="center" />
       #end
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-metaColumn label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="{row}">
           <el-button type="primary" @click="edit(row)">编辑</el-button>
           <el-button type="danger" @click="remove(row)">删除</el-button>
         </template>
-      </el-table-column>
+      </el-table-metaColumn>
     </el-table>
 
     <el-pagination :page-size="queryParam.pageSize" :current-page="queryParam.pageNum" :total="queryParam.total" @current-change="pageChange"/>
 
     <el-dialog :visible.sync="createDialogShow" :close-on-click-modal="false" destroy-on-close @close="closeDialogCallBack">
       <el-form ref="form" :model="form" label-position="right" label-width="100px">
-        #foreach($column in $columns)
-        #if($column.attributeName!="id" && $column.type!="Date")
-        <el-form-item label="$column.comment">
-          <el-input v-model="form.$column.attributeName" />
+        #foreach($metaColumn in $columns)
+        #if($metaColumn.attributeName!="id" && $metaColumn.type!="Date")
+        <el-form-item label="$metaColumn.comment">
+          <el-input v-model="form.$metaColumn.attributeName" />
         </el-form-item>
         #end
         #end
@@ -68,9 +68,9 @@ export default {
       tableData: [],
       loading: false,
       queryParam: {
-        #foreach($column in $columns)
-        #if($column.attributeName!="id" && $column.type!="Date")
-        $column.attributeName:'',
+        #foreach($metaColumn in $columns)
+        #if($metaColumn.attributeName!="id" && $metaColumn.type!="Date")
+        $metaColumn.attributeName:'',
         #end
         #end
         pageNum: 1,
@@ -79,9 +79,9 @@ export default {
       },
       createDialogShow: false,
       form: {
-        #foreach($column in $columns)
-        #if($column.attributeName!="id" && $column.type!="Date")
-        $column.attributeName:'',
+        #foreach($metaColumn in $columns)
+        #if($metaColumn.attributeName!="id" && $metaColumn.type!="Date")
+        $metaColumn.attributeName:'',
         #end
         #end
       }

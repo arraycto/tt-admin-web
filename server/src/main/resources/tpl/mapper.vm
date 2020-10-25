@@ -14,10 +14,10 @@
 		from
 		${tableName}
         <where>
-        #foreach($column in $columns)
-		#if($column.attributeName!="id" && $column.type!="Date")
-        <if test="$column.attributeName != null #if($column.type=="String") and $column.attributeName != '' #end">
-            and `$column.name` = #{$column.attributeName}
+        #foreach($metaColumn in $columns)
+		#if($metaColumn.attributeName!="id" && $metaColumn.type!="Date")
+        <if test="$metaColumn.attributeName != null #if($metaColumn.type=="String") and $metaColumn.attributeName != '' #end">
+            and `$metaColumn.name` = #{$metaColumn.attributeName}
         </if>
 		#end
         #end
@@ -30,25 +30,25 @@
 		</selectKey>
 		insert into ${tableName}
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-            #foreach($column in $columns)
-			#if(($column.attributeName == "createTime"))
+            #foreach($metaColumn in $columns)
+			#if(($metaColumn.attributeName == "createTime"))
 				`create_time`,
-			#elseif(($column.attributeName == "updateTime"))
+			#elseif(($metaColumn.attributeName == "updateTime"))
 				`update_time`,
-            #elseif($column.attributeName != "id")
-			<if test="$column.attributeName != null">
-				`$column.name`,
+            #elseif($metaColumn.attributeName != "id")
+			<if test="$metaColumn.attributeName != null">
+				`$metaColumn.name`,
 			</if>
 			#end
             #end
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-            #foreach($column in $columns)
-                #if(($column.attributeName == "createTime" || $column.attributeName == "updateTime")&&$column.attributeName != "id")
+            #foreach($metaColumn in $columns)
+                #if(($metaColumn.attributeName == "createTime" || $metaColumn.attributeName == "updateTime")&&$metaColumn.attributeName != "id")
                 now(),
-                #elseif($column.attributeName != "id")
-                <if test="$column.attributeName != null">
-                #{$column.attributeName},
+                #elseif($metaColumn.attributeName != "id")
+                <if test="$metaColumn.attributeName != null">
+                #{$metaColumn.attributeName},
                 </if>
                 #end
             #end
@@ -58,11 +58,11 @@
 	<update id="update" parameterType="${packageName}.${module}.model.${ClassName}">
 		update ${tableName}
 		<set>
-		    #foreach($column in $columns)
-		        #if($column.attributeName == 'updateTime'&&$column.attributeName != 'id')
-                `$column.name` = now(),
-                #elseif($column.attributeName != 'id'&& $column.attributeName != 'createTime')
-			    <if test="$column.attributeName != null">`$column.name` = #{$column.attributeName}, </if>
+		    #foreach($metaColumn in $columns)
+		        #if($metaColumn.attributeName == 'updateTime'&&$metaColumn.attributeName != 'id')
+                `$metaColumn.name` = now(),
+                #elseif($metaColumn.attributeName != 'id'&& $metaColumn.attributeName != 'createTime')
+			    <if test="$metaColumn.attributeName != null">`$metaColumn.name` = #{$metaColumn.attributeName}, </if>
                 #end
             #end
 		</set>

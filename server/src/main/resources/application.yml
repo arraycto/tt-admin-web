@@ -26,7 +26,6 @@ spring:
     show-sql: true
 mybatis:
   mapper-locations: classpath:mybatis/**/*.xml
-  type-aliases-package: com.tt.**
   configuration:
     map-underscore-to-camel-case: true
 logging:

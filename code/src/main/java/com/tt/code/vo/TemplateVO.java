@@ -13,11 +13,20 @@ import java.util.List;
 @NoArgsConstructor
 public class TemplateVO {
 
+    private Integer pageNum = 1;
+
+    private Integer pageSize = 10;
+
+    private Integer id;
+
     private String template;
 
     private String content;
 
     private String fileType;
 
-    private String fileName;
+    private String templateName;
+
+    private String userName;
+
 }

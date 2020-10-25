@@ -2,28 +2,23 @@ package com.tt.code.controller;
 
 import com.tt.code.service.CodeService;
 import com.tt.code.vo.CodeVO;
-import com.tt.code.vo.Result;
+import com.tt.code.vo.ApiResult;
+import com.tt.code.vo.TemplateVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 
-@Controller
+@RestController
 @Slf4j
 @RequestMapping("/code")
 public class CodeController {
 
     @Autowired
     private CodeService codeService;
-
-    @GetMapping("/")
-    public String codePage() {
-        return "code";
-    }
 
     /**
      * 校验sql语法
@@ -32,13 +27,12 @@ public class CodeController {
      * @return
      */
     @PostMapping("/check-sql")
-    @ResponseBody
-    public Result checkSql(@RequestBody CodeVO codeVO) {
+    public ApiResult checkSql(@RequestBody CodeVO codeVO) {
         try {
             codeService.validationCreateSql(codeVO.getSql());
-            return Result.ok();
+            return ApiResult.ok(true);
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return ApiResult.error(e.getMessage());
         }
 
     }
@@ -50,13 +44,12 @@ public class CodeController {
      * @return
      */
     @PostMapping("/preview")
-    @ResponseBody
-    public Result preview(@RequestBody CodeVO codeVO) {
+    public ApiResult preview(@RequestBody CodeVO codeVO) {
         try {
-            codeService.preview(codeVO.getSql(), codeVO.getTemplate());
-            return Result.ok();
+            TemplateVO templateVO = codeService.preview(codeVO.getSql(), codeVO.getCustomerTemplateVariable(), codeVO.getTemplate());
+            return ApiResult.ok(templateVO);
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return ApiResult.error(e.getMessage());
         }
     }
 
@@ -71,7 +64,7 @@ public class CodeController {
         try {
             response.setCharacterEncoding("utf-8");
             ServletOutputStream outputStream = response.getOutputStream();
-            ByteArrayOutputStream byteArrayOutputStream = codeService.generate(codeVO.getSql(), codeVO.getTemplateList());
+            ByteArrayOutputStream byteArrayOutputStream = codeService.generate(codeVO.getSql(), codeVO.getCustomerTemplateVariable(), codeVO.getTemplateList());
             response.setContentType("multipart/form-data");
             response.setHeader("Content-Disposition", "attachment;fileName=code.zip");
             outputStream.write(byteArrayOutputStream.toByteArray());
