@@ -40,7 +40,7 @@ public class DeptServiceImpl implements DeptService {
 			DeptVO temp = new DeptVO();
 			temp.setParentId(pop.getId());
 			List<DeptVO> children = deptDao.findByCondition(temp);
-			children.forEach(item->item.setParentDeptName(pop.getDeptName()));
+			children.forEach(item->item.setParentName(pop.getDeptName()));
 			if (CollectionUtils.isNotEmpty(children)) {
 				pop.setChildren(children);
 				children.forEach(stack::push);

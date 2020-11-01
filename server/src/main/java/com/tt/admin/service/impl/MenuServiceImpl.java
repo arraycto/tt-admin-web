@@ -44,6 +44,8 @@ public class MenuServiceImpl implements MenuService {
         stack.addAll(menuList);
         while (!stack.empty()) {
             MenuVO pop = stack.pop();
+            pop.setKey(pop.getId());
+            pop.setTitle(pop.getName());
             MenuVO temp = new MenuVO();
             temp.setParentId(pop.getId());
             List<MenuVO> children = menuDao.findByCondition(temp);

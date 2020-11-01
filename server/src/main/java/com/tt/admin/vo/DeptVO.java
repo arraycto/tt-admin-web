@@ -17,14 +17,15 @@ public class DeptVO {
      */
     private Integer id;
     /**
-     * 父菜单ID，一级菜单为0
+     * 上级部门ID
      */
     private Integer parentId;
 
     /**
-     * 父菜单ID，一级菜单为0
+     * 上级部门
      */
-    private String parentDeptName;
+    private String parentName;
+
     /**
      * 菜单名称
      */

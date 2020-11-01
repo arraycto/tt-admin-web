@@ -21,6 +21,8 @@ public class MenuVO {
      * 主键
      */
     private Integer id;
+
+    private Integer key;
     /**
      * 父菜单ID，一级菜单为0
      */
@@ -34,6 +36,8 @@ public class MenuVO {
      * 菜单名称
      */
     private String name;
+
+    private String title;
     /**
      * 菜单URL
      */
