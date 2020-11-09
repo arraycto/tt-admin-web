@@ -35,6 +35,7 @@ public class CodeController {
             codeService.validationCreateSql(codeVO.getSql());
             return ApiResult.ok(true);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return ApiResult.error(e.getMessage());
         }
 
@@ -52,6 +53,7 @@ public class CodeController {
             TemplateVO templateVO = codeService.preview(codeVO.getSql(), codeVO.getCustomerTemplateVariable(), codeVO.getTemplate());
             return ApiResult.ok(templateVO);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return ApiResult.error(e.getMessage());
         }
     }
@@ -73,6 +75,7 @@ public class CodeController {
             outputStream.write(byteArrayOutputStream.toByteArray());
             outputStream.close();
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             log.warn(e.getMessage(), e);
         }
     }

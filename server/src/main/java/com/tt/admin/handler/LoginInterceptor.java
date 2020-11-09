@@ -22,12 +22,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         UserVO user = (UserVO) session.getAttribute("user");
         if (user == null) {
-            user = new UserVO();
-            user.setUsername("tongxin1");
-            user.setRoleName("超级管理员");
-            user.setRoleSign("SUPER_ADMIN");
-        }
-        if (user == null) {
             response.setContentType("application/json; charset=utf-8");
             response.getWriter().write(LOGIN_ERROR_JSON);
             return false;
