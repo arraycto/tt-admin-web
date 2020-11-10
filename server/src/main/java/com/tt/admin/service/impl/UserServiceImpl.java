@@ -11,8 +11,10 @@ import com.tt.admin.model.UserDept;
 import com.tt.admin.model.UserRole;
 import com.tt.admin.service.UserService;
 import com.tt.admin.vo.UserVO;
+import com.tt.common.utils.MD5Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -123,11 +125,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateCurrentUser(UserVO userVO) {
-        if (!UserHandler.getCurrentUsername().equals(userVO.getUsername())){
-            throw new RuntimeException("服务错误");
-        }
         User user = BeanUtil.copyProperties(userVO, User.class);
         user.setUpdateTime(new Date());
+        if (StringUtils.isNotBlank(user.getPassword())) {
+            user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
+        }
         userDao.update(user);
     }
 }

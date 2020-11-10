@@ -55,8 +55,10 @@ public class UserController {
     @ResponseBody
     public Result updateCurrentUser(@RequestBody UserVO userVO, HttpServletRequest request) {
         try {
-            userService.updateCurrentUser(userVO);
             UserVO reallyUser = userService.findByUsername(UserHandler.getCurrentUsername());
+            userVO.setId(reallyUser.getId());
+            userService.updateCurrentUser(userVO);
+            reallyUser = userService.findByUsername(UserHandler.getCurrentUsername());
             HttpSession session = request.getSession();
             session.setAttribute("user", reallyUser);
             return Result.ok();
