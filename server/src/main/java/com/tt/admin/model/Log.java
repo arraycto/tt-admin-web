@@ -41,6 +41,11 @@ public class Log {
      *
      */
     private String classMethod;
+
+    /**
+     *
+     */
+    private String ip;
     /**
      *
      */

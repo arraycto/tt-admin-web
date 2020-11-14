@@ -22,6 +22,9 @@ public class UserHandler {
     }
 
     public static String getCurrentUsername() {
+        if (USER_INFO_THREAD_LOCAL.get() == null) {
+            return "";
+        }
         return USER_INFO_THREAD_LOCAL.get().getUsername();
     }
 

@@ -1,5 +1,6 @@
 package com.tt.admin.controller;
 
+import com.tt.admin.annotation.SysLog;
 import com.tt.admin.model.FeVersion;
 import com.tt.admin.service.FeVersionService;
 import com.tt.admin.vo.FeVersionVO;
@@ -17,6 +18,7 @@ public class IndexController {
     private FeVersionService feVersionService;
 
     @GetMapping("/")
+    @SysLog(module = "进入首页", operationType = "查看", desc = "")
     public String index(Model model) {
         FeVersionVO sysFeVersionVO = new FeVersionVO();
         Optional<FeVersion> first = feVersionService.findAll(sysFeVersionVO).stream().findFirst();

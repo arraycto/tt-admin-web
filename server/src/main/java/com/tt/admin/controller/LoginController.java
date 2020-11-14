@@ -1,5 +1,6 @@
 package com.tt.admin.controller;
 
+import com.tt.admin.annotation.SysLog;
 import com.tt.common.utils.MD5Utils;
 import com.tt.common.vo.Result;
 import com.tt.admin.model.User;
@@ -27,6 +28,7 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping("/login")
+    @SysLog(module = "登录", operationType = "增加", desc = "")
     public Result login(@RequestBody User user, HttpServletRequest request) {
         if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())) {
             return Result.error("用户名或密码不能为空");
@@ -47,6 +49,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
+    @SysLog(module = "登出", operationType = "增加", desc = "")
     public Result logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute("user");

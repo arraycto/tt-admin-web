@@ -15,13 +15,14 @@ import java.util.List;
  * @author TONGXIN
  */
 @RestController
-@RequestMapping("/system/menu")
+@RequestMapping("/admin/menu")
 public class MenuController {
 
     @Autowired
     private MenuService menuService;
 
     @GetMapping("/list")
+    @SysLog(module = "获取分页菜单", operationType = "查看", desc = "")
     public Result getMenuPageList(MenuVO menuVO) {
         List<MenuVO> menuList = menuService.findByCondition(menuVO);
         if (menuList instanceof Page) {
@@ -39,6 +40,7 @@ public class MenuController {
     }
 
     @GetMapping("/all-list")
+    @SysLog(module = "获取全部菜单", operationType = "查看", desc = "")
     public Result getMenuAllList(MenuVO menuVO) {
         List<MenuVO> menuList = menuService.findAll(menuVO);
         return Result.ok(menuList);
@@ -48,6 +50,7 @@ public class MenuController {
      * 保存
      */
     @PostMapping("/save")
+    @SysLog(module = "添加菜单", operationType = "增加", desc = "")
     public Result save(@RequestBody Menu menu) {
         menuService.save(menu);
         return Result.ok();
@@ -57,6 +60,7 @@ public class MenuController {
      * 修改
      */
     @PostMapping("/update")
+    @SysLog(module = "修改菜单", operationType = "修改", desc = "")
     public Result update(@RequestBody Menu menu) {
         menuService.update(menu);
         return Result.ok();
@@ -66,6 +70,7 @@ public class MenuController {
      * 删除
      */
     @PostMapping("/delete/{menuId}")
+    @SysLog(module = "删除菜单", operationType = "删除", desc = "")
     public Result remove(@PathVariable Integer menuId) {
         menuService.deleteById(menuId);
         return Result.ok();

@@ -1,6 +1,7 @@
 package com.tt.admin.controller;
 
 import com.github.pagehelper.Page;
+import com.tt.admin.annotation.SysLog;
 import com.tt.common.vo.Result;
 import com.tt.admin.annotation.Permission;
 import com.tt.admin.model.FeVersion;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/system/feVersion")
+@RequestMapping("/admin/feVersion")
 @Permission(value = {"SUPER_ADMIN"})
 public class FeVersionController {
 
@@ -22,6 +23,7 @@ public class FeVersionController {
     private FeVersionService feVersionService;
 
     @GetMapping("/list")
+    @SysLog(module = "获取版本分页数据", operationType = "查看", desc = "")
     public Result getPageList(FeVersionVO feVersionVO) {
         try {
             List<FeVersion> feVersionList = feVersionService.findByCondition(feVersionVO);
@@ -37,6 +39,7 @@ public class FeVersionController {
     }
 
     @GetMapping("/all-list")
+    @SysLog(module = "获取版本全部数据", operationType = "查看", desc = "")
     public Result getAllList(FeVersionVO feVersionVO) {
         try {
             return Result.ok(feVersionService.findAll(feVersionVO));
@@ -47,6 +50,7 @@ public class FeVersionController {
     }
 
     @PostMapping("/save")
+    @SysLog(module = "增加版本", operationType = "增加", desc = "")
     public Result save(@RequestBody FeVersion feVersion) {
         try {
             feVersionService.save(feVersion);
@@ -57,7 +61,8 @@ public class FeVersionController {
         }
     }
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
+    @SysLog(module = "修改版本", operationType = "修改", desc = "")
     public Result update(@RequestBody FeVersion feVersion) {
         try {
             feVersionService.update(feVersion);
@@ -69,6 +74,7 @@ public class FeVersionController {
     }
 
     @PostMapping("/delete/{id}")
+    @SysLog(module = "删除版本", operationType = "删除", desc = "")
     public Result remove(@PathVariable Integer id) {
         try {
             feVersionService.deleteById(id);

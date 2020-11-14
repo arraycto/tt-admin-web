@@ -68,6 +68,9 @@
             <if test="classMethod != null">
                 `class_method`,
             </if>
+            <if test="ip != null">
+                `ip`,
+            </if>
             <if test="createUser != null">
                 `create_user`,
             </if>
@@ -95,6 +98,9 @@
             </if>
             <if test="classMethod != null">
                 #{classMethod},
+            </if>
+            <if test="ip != null">
+                #{ip},
             </if>
             <if test="createUser != null">
                 #{createUser},

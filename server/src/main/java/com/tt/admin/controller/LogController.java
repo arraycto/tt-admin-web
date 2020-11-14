@@ -1,6 +1,7 @@
 package com.tt.admin.controller;
 
 import com.github.pagehelper.Page;
+import com.tt.admin.annotation.SysLog;
 import com.tt.common.vo.Result;
 import com.tt.admin.model.Log;
 import com.tt.admin.service.LogService;
@@ -14,13 +15,14 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/system/log")
+@RequestMapping("/admin/log")
 public class LogController {
 
     @Autowired
     private LogService logService;
 
     @GetMapping("/list")
+    @SysLog(module = "获取日志分页数据", operationType = "查看", desc = "")
     public Result getPageList(LogVO logVO) {
         try {
             List<Log> logList = logService.findByCondition(logVO);
@@ -36,6 +38,7 @@ public class LogController {
     }
 
     @GetMapping("/all-list")
+    @SysLog(module = "获取日志全部数据", operationType = "查看", desc = "")
     public Result getAllList(LogVO logVO) {
         try {
             return Result.ok(logService.findAll(logVO));
@@ -46,6 +49,7 @@ public class LogController {
     }
 
     @PostMapping("/save")
+    @SysLog(module = "增加日志", operationType = "增加", desc = "")
     public Result save(@RequestBody Log syslog) {
         try {
             logService.save(syslog);
@@ -56,7 +60,8 @@ public class LogController {
         }
     }
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
+    @SysLog(module = "修改日志", operationType = "修改", desc = "")
     public Result update(@RequestBody Log syslog) {
         try {
             logService.update(syslog);
@@ -68,6 +73,7 @@ public class LogController {
     }
 
     @PostMapping("/delete/{id}")
+    @SysLog(module = "删除日志", operationType = "删除", desc = "")
     public Result remove(@PathVariable Integer id) {
         try {
             logService.deleteById(id);

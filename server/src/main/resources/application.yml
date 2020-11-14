@@ -20,21 +20,15 @@ spring:
     prefix: classpath:/templates/
     mode: HTML5
     suffix: .html
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
 mybatis:
   mapper-locations: classpath:mybatis/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
-logging:
-  level:
-    com.xlian: DEBUG
 static-resource:
   path: /work/fe/
 code:
   auto:
     create: true
+demo: true #是否演示环境
 
 

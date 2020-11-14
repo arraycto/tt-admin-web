@@ -1,5 +1,6 @@
 package com.tt.admin.controller;
 
+import com.tt.admin.annotation.SysLog;
 import com.tt.common.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,7 @@ public class FileController {
     private String appServerHost;
 
     @PostMapping("/uploadFeFile")
+    @SysLog(module = "上传文件", operationType = "增加", desc = "")
     public Result uploadFeFile(@NotNull MultipartFile file, @NotNull String directory) {
         String pathName = System.getProperties().getProperty("user.home") + staticResourcePath  + directory;
         File fileObj = new File(pathName);

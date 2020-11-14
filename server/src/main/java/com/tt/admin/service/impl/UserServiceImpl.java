@@ -132,4 +132,8 @@ public class UserServiceImpl implements UserService {
         }
         userDao.update(user);
     }
+
+    public static void main(String[] args) {
+        System.out.println(MD5Utils.encrypt("superadmin", "admin"));
+    }
 }

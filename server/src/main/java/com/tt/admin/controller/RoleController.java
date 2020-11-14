@@ -1,6 +1,7 @@
 package com.tt.admin.controller;
 
 import com.github.pagehelper.Page;
+import com.tt.admin.annotation.SysLog;
 import com.tt.common.vo.Result;
 import com.tt.admin.model.Role;
 import com.tt.admin.model.RoleMenu;
@@ -13,13 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/system/role")
+@RequestMapping("/admin/role")
 public class RoleController {
 
     @Autowired
     private RoleService roleService;
 
     @GetMapping("/list")
+    @SysLog(module = "获取角色分页数据", operationType = "查看", desc = "")
     public Result getRolePageList(RoleVO roleVO) {
         List<Role> roleList = roleService.findByCondition(roleVO);
         if (roleList instanceof Page) {
@@ -30,6 +32,7 @@ public class RoleController {
     }
 
     @GetMapping("/all-list")
+    @SysLog(module = "获取角色全部数据", operationType = "查看", desc = "")
     public Result getRoleAllList(RoleVO roleVO) {
         List<Role> roleList = roleService.findAll(roleVO);
         return Result.ok(roleList);
@@ -39,6 +42,7 @@ public class RoleController {
      * 保存
      */
     @PostMapping("/save")
+    @SysLog(module = "增加角色", operationType = "增加", desc = "")
     public Result save(@RequestBody Role role) {
         roleService.save(role);
         return Result.ok();
@@ -47,7 +51,8 @@ public class RoleController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
+    @SysLog(module = "修改角色", operationType = "修改", desc = "")
     public Result update(@RequestBody Role role) {
         roleService.update(role);
         return Result.ok();
@@ -57,6 +62,7 @@ public class RoleController {
      * 删除
      */
     @PostMapping("/delete/{roleId}")
+    @SysLog(module = "删除角色", operationType = "删除", desc = "")
     public Result remove(@PathVariable Integer roleId) {
         roleService.deleteById(roleId);
         return Result.ok();
@@ -68,6 +74,7 @@ public class RoleController {
      * @return
      */
     @GetMapping("/role-menu")
+    @SysLog(module = "获取权限菜单数据", operationType = "删除", desc = "")
     public Result getRoleMenu(RoleMenu roleMenu) {
         List<RoleMenu> roleMenuList = roleService.getRoleMenu(roleMenu);
         List<Integer> result = new ArrayList<>();
@@ -81,6 +88,7 @@ public class RoleController {
      * @return
      */
     @PostMapping("/add-menu-permission")
+    @SysLog(module = "增加菜单权限", operationType = "增加", desc = "")
     public Result addMenuPermission(@RequestBody RoleVO roleVO) {
         roleService.addMenuPermission(roleVO);
         return Result.ok();

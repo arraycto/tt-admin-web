@@ -54,6 +54,7 @@ public class LogAop {
                     .operationType(sysLog.operationType())
                     .requestUrl(request.getRequestURI())
                     .requestMethod(request.getMethod())
+                    .ip(request.getRemoteAddr())
                     .requestParam(Arrays.toString(joinPoint.getArgs()))
                     .classMethod(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName())
                     .createUser(UserHandler.getCurrentUsername())
