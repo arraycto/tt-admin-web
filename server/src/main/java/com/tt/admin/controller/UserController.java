@@ -61,6 +61,7 @@ public class UserController {
         try {
             UserVO reallyUser = userService.findByUsername(UserHandler.getCurrentUsername());
             userVO.setId(reallyUser.getId());
+            userVO.setUsername(reallyUser.getUsername());
             userService.updateCurrentUser(userVO);
             reallyUser = userService.findByUsername(UserHandler.getCurrentUsername());
             HttpSession session = request.getSession();
