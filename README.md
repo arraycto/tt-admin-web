@@ -6,7 +6,7 @@ TT-ADMIN是一个SpringBoot+React前后端分离项目，旨在为大家提供�
 前端项目地址
 * React版本：[https://github.com/tongsanghua/tt-admin-react](https://github.com/tongsanghua/tt-admin-react)
 * Vue版本（重构中，将采取和React版本一样的UI）：[https://github.com/tongsanghua/tt-admin-vue](https://github.com/tongsanghua/tt-admin-vue)
-* [演示地址](https://github.com/tongsanghua/tt-admin-vue)
+* [演示地址](https://github.com/tongsanghua/tt-admin-web)
 
 ## 内置功能
 
