@@ -32,7 +32,7 @@ public class EnvironmentAop {
             HttpServletRequest request = attributes.getRequest();
             String method = request.getMethod();
             String requestURI = request.getRequestURI();
-            if (!requestURI.contains("login") && !requestURI.contains("logout") && !requestURI.startsWith("/code")) {
+            if (!requestURI.contains("login") && !requestURI.contains("logout") && !requestURI.startsWith("/code") && !requestURI.startsWith("/file")) {
                 if (!"GET".equalsIgnoreCase(method)) {
                     log.warn("演示环境，不允许修改");
                     throw new RuntimeException("演示环境，不允许修改");
