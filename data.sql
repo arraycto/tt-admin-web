@@ -218,7 +218,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'superadmin', '超级管理员', 'email@qq.com', '130d13d4278fafe067ac40f2582813d4', '12345678910', 1, '2019-11-20 00:00:00', 'http://localhost:9090/static//user_header_image/f778738c-e4f8-4870-b634-56703b4acafe.gif', 1, '2019-11-20 23:51:23', '2020-11-14 12:03:04');
+INSERT INTO `sys_user` VALUES (1, 'superadmin', '超级管理员', 'email@qq.com', '81d7804250a8099dce3108a64dc0d71d', '12345678910', 1, '2019-11-20 00:00:00', 'http://localhost:9090/static//user_header_image/f778738c-e4f8-4870-b634-56703b4acafe.gif', 1, '2019-11-20 23:51:23', '2020-11-14 12:03:04');
 
 -- ----------------------------
 -- Table structure for sys_user_dept
