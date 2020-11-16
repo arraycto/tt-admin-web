@@ -3,7 +3,8 @@
 ## 平台简介
 
 TT-ADMIN是一个SpringBoot+React前后端分离项目，旨在为大家提供一个快速开发的模板，减少大部分重复性工作。预置后台系统的基本功能，抛弃不必要的功能，避免项目臃肿，可高度扩展，够轻量。  
-前端项目地址
+
+## 前端项目地址
 * React版本：[GitHub](https://github.com/tongsanghua/tt-admin-react)、[GitEE](https://gitee.com/tongsanghua/tt-admin-web)
 * Vue版本（重构中，将采取和React版本一样的UI）：[GitHub](https://github.com/tongsanghua/tt-admin-vue)
 * [演示地址](http://118.126.105.207:9090)
